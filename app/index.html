@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" ng-app="todoApp">
+<head>
+  <meta charset="utf-8">
+  <title>Ed's To Do</title>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+</head>
+<body ng-controller="todoCtrl">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ng-click="setTab(1)">My Tasks</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">Show tasks
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a ng-click="setTab(1)">all</a></li>
+                <li><a ng-click="setTab(2)">still to do</a></li>
+                <li><a ng-click="setTab(3)">completed</a></li>
+              </ul>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" placeholder="Add new task" ng-model="taskName">
+            <button ng-click="addTask(taskName)">add</button>
+          </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a ng-click="deleteCompleted()">clear completed tasks!</a></li>
+          <li><a ng-click="uncheckAll()">Uncheck All</a></li>
+          <li><a ng-click="deleteAll()">Delete All</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+      <div class="jumbotron">
+        <h2>To Do List</h2>
+        <input id="searchbox" type="text" placeholder="Search your tasks"ng-model="searchTerm">
+        or sort by: <select ng-model="orderProp">
+          <option value="name">Alphabetical</option>
+        </select>
+        <ul class="tasks" ng-show="tab === 1">
+          <li  ng-repeat="task in list | filter:searchTerm | orderBy:orderProp">
+            <label ng-click="taskComplete(task)">
+              <input type="checkbox" ng-model="task.complete">
+            </label>
+            <span>{{task.name}}</span>
+            <a id="delete" ng-click="deleteTask(list, task)">delete</a>
+          </li>
+        </ul>
+
+        <ul ng-show="tab === 2">
+          <li  ng-repeat="task in active | filter:searchTerm | orderBy:orderProp">
+            <label ng-click="taskComplete(task)">
+              <input type="checkbox" ng-model="task.complete">
+            </label>
+            <span>{{task.name}}</span>
+            <a id="delete" ng-click="deleteTask(list, task)">delete</a>
+          </li>
+        </ul>
+
+        <ul ng-show="tab === 3">
+          <li  ng-repeat="task in completed | filter:searchTerm | orderBy:orderProp">
+            <label ng-click="taskComplete(task)">
+              <input type="checkbox" ng-model="task.complete">
+            </label>
+            <span>{{task.name}}</span>
+            <a id="delete" ng-click="deleteTask(list, task)">delete</a>
+          </li>
+        </ul>
+      </div>
+
+
+        <span>Total Tasks: {{list.length}}</span>
+        <span>Active Tasks: {{active.length}}</span>
+        <span>Completed Tasks: {{completed.length}}</span>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
