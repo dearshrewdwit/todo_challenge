@@ -62,7 +62,7 @@
         </select>
         <ul class="tasks" ng-show="tab === 1">
           <li  ng-repeat="task in list | filter:searchTerm | orderBy:orderProp">
-            <label ng-click="taskComplete(task)">
+            <label ng-click="updateAll()">
               <input type="checkbox" ng-model="task.complete">
             </label>
             <span>{{task.name}}</span>
@@ -72,7 +72,7 @@
 
         <ul ng-show="tab === 2">
           <li  ng-repeat="task in active | filter:searchTerm | orderBy:orderProp">
-            <label ng-click="taskComplete(task)">
+            <label ng-click="updateAll()">
               <input type="checkbox" ng-model="task.complete">
             </label>
             <span>{{task.name}}</span>
@@ -82,7 +82,7 @@
 
         <ul ng-show="tab === 3">
           <li  ng-repeat="task in completed | filter:searchTerm | orderBy:orderProp">
-            <label ng-click="taskComplete(task)">
+            <label ng-click="updateAll()">
               <input type="checkbox" ng-model="task.complete">
             </label>
             <span>{{task.name}}</span>

@@ -25,10 +25,6 @@ todoApp.controller('todoCtrl', function($scope) {
     $scope.updateAll();
   };
 
-  $scope.taskComplete = function(task) {
-    $scope.updateAll();
-  };
-
   $scope.updateAll = function() {
     $scope.completeTasks();
     $scope.incompleteTasks();
